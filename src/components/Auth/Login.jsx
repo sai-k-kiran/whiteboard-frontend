@@ -1,5 +1,5 @@
 import React from "react";
-// import Navbar from "../Home/Navbar";
+import Navbar from "../Home/Navbar";
 // import { FiUserCheck } from "react-icons/fi";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,20 +28,20 @@ function Login() {
 
 
   return (
-    <div className="login">
-        <div className="loginContainer">
-            <div className="login-info">
+    <>
+      <Navbar />
+      <div className="login">
+          <div className="loginContainer">
+             <div className="login-info">
                   <h1>
-                    Log in to use the special features
-                    <br></br>
-                    Click the button below
+                    Log in to use Whiteboard
                   </h1>
-                  <p>Go ahead</p>
-                  <button className="facebook-btn login-btn">
+                  <p>Increase your social presence</p>
+                  <button className="social-btn login-btn">
                     <FcGoogle />
                     Log in with Google
                   </button>
-                  <button className="facebook-btn login-btn">
+                  <button className="social-btn login-btn">
                     <FaFacebook />
                   Log in with facebook
                   </button>
@@ -50,24 +50,25 @@ function Login() {
                     <div className="OR">OR</div>
                     <hr></hr>
                   </div>
-                  <button className="facebook-btn demo login-btn" >
+                  <button className="social-btn login-btn" >
                     <FiUserCheck />
                     Log in as a guest 
                   </button>
-                  <Link to="/login">
-                    <button className="google-btn login-btn">
-                      Log in with whiteboard account
+                  <Link to="/signin">
+                    <button className="social-btn login-btn">
+                      Sign in with whiteboard account instead
                     </button>
                   </Link>
                   <p className="login-foot">
                     <Link to="/register">Create an account</Link>
                   </p>
-            </div>
-            <div className="login-pic">
-                <img className="login-vector" src={Vector} alt="login-pic" />
-            </div>
-        </div>
-    </div>
+              </div>
+              <div className="login-pic">
+                  <img className="login-vector" src={Vector} alt="login-pic" />
+              </div>
+          </div>
+      </div>
+    </>
   );
 }
 

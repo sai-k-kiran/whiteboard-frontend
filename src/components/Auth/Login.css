@@ -5,7 +5,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: auto 0;
+  padding: auto 0; 
   margin: 0;
   position: absolute;
   top: 50%;
@@ -15,13 +15,13 @@
 }
 
   .login-info {
+    margin: 70px 20px;
+    display: block;
     width: 25%;
-    height: 80%;
-    margin-right: 3%;
   }
   .login-info h1 {
     margin-bottom: 20px;
-    font-size: 32px;
+    font-size: 24px;
   }
   .login-info p {
     color: #717477;
@@ -39,19 +39,16 @@
     outline: none;
     cursor: pointer;
   }
-  .google-btn,
-  .facebook-btn{
+  .social-btn{
     width: 100%;
     border: 2px solid #dcdcdc;
   }
-  .facebook-btn svg {
+  .social-btn svg {
     color: #4267b2;
     margin-right: 10px;
   }
-
-  .demo {
-    border: 2px solid #dcdcdc;
-    width: 100%;
+  .social-btn:hover{
+    border: 2px solid rgb(15, 179, 179);
   }
   .signup-btn {
     border: 2px solid teal;
@@ -66,10 +63,7 @@
     border: 2px solid #f1bd01;
     background-color: #f1bd01;
   }
-  .login-btn span {
-    width: 90%;
-    color: #717477;
-  }
+  
   .login-foot {
     font-size: 10px !important;
   }
