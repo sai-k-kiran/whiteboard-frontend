@@ -2,10 +2,11 @@ import React, { useState, useEffect, Suspense } from "react";
 import "./UnsplashDrawer.css";
 import "./DrawerSearch.css";
 import Axios from "axios";
-import { CanvasContext } from "../../../index";
+import { CanvasContext } from "../../../main";
 import { fabric } from "fabric";
 import { FiSearch } from "react-icons/fi";
 import Loading from "../../Home/Loading";
+
 
 const iterates = [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }];
 
@@ -14,13 +15,14 @@ function UnsplashDrawer() {
   const [images, setImages] = useState([]);
   const [keyword, setKeyword] = useState("");
 
-//   useEffect(() => {
-//     Axios.get(
-//       `https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_KEY}`
-//     ).then((response) => {
-//       setImages(response.data);
-//     });
-//   }, []);
+  // useEffect(() => {
+  //   Axios.get(
+  //     `https://api.unsplash.com/photos/?client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
+  //   ).then((response) => {
+  //     setImages(response.data)
+  //     console.log(images)
+  //   });
+  // }, []);
 
   async function submitQuery() {
     // const request = await Axios.get(
@@ -67,7 +69,7 @@ function UnsplashDrawer() {
                   <div
                     key={image.id}
                     className="unsplash-image"
-                    onClick={() => addPhoto(image.urls.full)}
+                    onClick={() => addPhoto(image.regular)}
                   >
                     <img src={image.urls.thumb} alt="photos" />
                   </div>

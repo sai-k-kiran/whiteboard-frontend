@@ -1,24 +1,20 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import Logout from "../Auth/logout";
+import { useSelector, useDispatch } from "react-redux";
+import Logout from "../Auth/logout";
 import Logo from "../Images/capture.png"
 // import NewDesignDropDown from "../Dropdowns/NewDesignDrop";
-// import LanguageDropDown from "../Dropdowns/LanguageDropDown";
-// import { addJson } from "../redux/Design/DesignActions";
+import { addJson } from "../redux/Design/DesignActions";
 import { IoLanguage } from "react-icons/io5";
-// import { useTranslation } from "react-i18next";
 
 function Navbar() {
   const [toggle, setToggle] = useState(false);
-  const user = null
-//   const user = useSelector((state) => state.user.currentUser);
-//   const dispatch = useDispatch();
-//   const { t } = useTranslation();
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
 
   function setZero() {
-    // dispatch(addJson(""));
+    dispatch(addJson(""));
   }
 
   return (
@@ -40,11 +36,11 @@ function Navbar() {
                   <button
                     className="create-design"
                     onClick={setZero}
-                    // onClick={()=>setToggle(!toggle)}
+                    onClick={()=>setToggle(!toggle)}
                   >
                     Create design
                   </button>
-                  {/* {toggle ? <NewDesignDropDown /> : null} */}
+                  {toggle ? <NewDesignDropDown /> : null}
                 </Link>
               </li>
             ) : null}
@@ -53,10 +49,6 @@ function Navbar() {
                 <Logout />
               </li>
             ) : null}
-            <li className="language" onClick={() => setToggle(!toggle)}>
-              <IoLanguage />
-              {toggle ? <LanguageDropDown /> : null}
-            </li>
           </ul>
         </div>
       </nav>

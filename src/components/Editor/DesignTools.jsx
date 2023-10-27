@@ -10,17 +10,17 @@ function DesignTools() {
     canvas.current?.remove(selected);
   };
 
-  // useEffect(() => {
-  //   document.addEventListener("keydown", onDelete, false);
-  // }, []);
+  useEffect(() => {
+    document.addEventListener("keydown", canvas.current.renderAll());
+  }, []);
 
-  // const onDelete = (e) => {
-  //   e.preventDefault();
-  //   if (e.key === "Delete") {
-  //     const selected = canvas.current.getActiveObject();
-  //     canvas.current?.remove(selected);
-  //   } else return;
-  // };
+  const onDelete = (e) => {
+    e.preventDefault();
+    if (e.key === "Delete") {
+      const selected = canvas.current.getActiveObject();
+      canvas.current?.remove(selected);
+    } else return;
+  };
   const changeColor = (e) => {
     if (canvas.current.getActiveObject()) {
       canvas.current?.getActiveObject().set("fill", e.target.value);

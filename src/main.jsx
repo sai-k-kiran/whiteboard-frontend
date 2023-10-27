@@ -11,6 +11,9 @@ import AllDesignsContainer from './components/Folders/AllDesignsContainer'
 import SavedDesigns from './components/Folders/SavedDesigns'
 import UploadsContainer from './components/Folders/UploadsContainer'
 import MainEditor from './components/Editor/MainEditor'
+import { Provider } from "react-redux";
+import store, { persistor } from "./components/redux/createStore";
+import { PersistGate } from "redux-persist/integration/react";
 
 export const CanvasContext = React.createContext();
 
@@ -54,8 +57,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <CanvasContext.Provider value={React.createRef()}>
-          <RouterProvider router={router} />
-      </ CanvasContext.Provider>
+      <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <CanvasContext.Provider value={React.createRef()}>
+              <RouterProvider router={router} />
+            </ CanvasContext.Provider>
+          </PersistGate>
+      </Provider>
   </React.StrictMode>,
 )

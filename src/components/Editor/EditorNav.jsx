@@ -83,15 +83,7 @@ function EditorNav() {
           <FiDownload />
           <span className="ml-4">Download</span>
         </button>
-        <button
-          type="button"
-          className="btn-icon btn-editor"
-          onClick={() => setToggle(!toggle)}
-        >
-          <FiShare2 />
-          <span className="ml-4">Share</span>
-        </button>
-        {toggle ? <ShareDropDown /> : null}
+        
       </nav>
     </div>
   );

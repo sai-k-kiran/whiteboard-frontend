@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./AllDesigns.css";
 import { useNavigate } from "react-router";
-// import { CanvasContext } from "../../index";
-// import { fabric } from "fabric";
+import { CanvasContext } from "../../main";
+import { fabric } from "fabric";
 import { Link } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import { addJson } from "../redux/Design/DesignActions";
-// import Axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addJson } from "../redux/Design/DesignActions";
+import Axios from "axios";
 // import _ from "lodash";
 
 function AllDesignsContainer() {
   const [templates, setTemplates] = useState([]);
-//   const dispatch = useDispatch();
-//   const user = useSelector((state) => state.user.currentUser);
-//   const canvas = React.useContext(CanvasContext);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
+  const canvas = React.useContext(CanvasContext);
   const navigate = useNavigate();
 
   function createNew() {
-    // navigate("/design");
-    // dispatch(addJson(""));
-    // setTimeout(addTemplate, 1000);
+    navigate("/editor");
+    dispatch(addJson(""));
+    setTimeout(addTemplate, 1000);
   }
 
 //   const design = _.groupBy(templates, "category");

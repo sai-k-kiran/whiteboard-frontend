@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./TextDrawer.css";
 import "./ElementsDrawer.css";
-import { CanvasContext } from "../../../index";
+import { CanvasContext } from "../../../main";
 import { fabric } from "fabric";
 
 function TextDrawer() {
@@ -14,7 +14,7 @@ function TextDrawer() {
       left: 100,
       fontFamily: "arial black",
       fontSize: 50,
-      editable: true,
+      editable: true
     });
     canvas.current?.add(Heading);
   }
@@ -23,7 +23,7 @@ function TextDrawer() {
       top: 0,
       left: 100,
       fontSize: 30,
-      editable: true,
+      editable: true
     });
     canvas.current?.add(SubText);
   }
@@ -32,7 +32,7 @@ function TextDrawer() {
       top: 0,
       left: 100,
       fontSize: 20,
-      editable: true,
+      editable: true
     });
     canvas.current?.add(LittleText);
   }
@@ -40,16 +40,16 @@ function TextDrawer() {
     <>
       <div className="customScroll">
         <div className="textDrawer">
-          <h3>{t("click-add")}</h3>
+          <h3>Click to add text</h3>
           <div className="highlights">
             <div className="highlightItem heading" onClick={addHeading}>
-              <p>{t("text1")}</p>
+              <p>Add a heading</p>
             </div>
             <div className="highlightItem subheading" onClick={addSubtext}>
-              <p>{t("text2")}</p>
+              <p>Add a sub-heading</p>
             </div>
             <div className="highlightItem body" onClick={addLittleText}>
-              <p>{t("text3")}</p>
+              <p>Add a little of body text</p>
             </div>
           </div>
         </div>

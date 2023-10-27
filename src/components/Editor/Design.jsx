@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 const Design = () => {
   const fabricRef = useFabric();
   const canvas = React.useContext(CanvasContext);
-//   const jsonData = useSelector((state) => state.design.data);
+  const jsonData = useSelector((state) => state.design.data);
 
-  // useEffect(() => {
-  //   canvas.current.loadFromJSON(jsonData);
-  // }, []);
+  useEffect(() => {
+    canvas.current.loadFromJSON(jsonData);
+  }, []);
 
   useEffect(() => {
     window.onbeforeunload = function () {

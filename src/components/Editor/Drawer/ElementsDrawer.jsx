@@ -11,7 +11,7 @@ import {
   Circle,
   Pentagon,
 } from "../assets";
-import { CanvasContext } from "../../../index";
+import { CanvasContext } from "../../../main";
 import { fabric } from "fabric";
 
 function ElementsDrawer() {

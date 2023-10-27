@@ -2,26 +2,26 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "./UnsplashDrawer.css";
 import { useSelector } from "react-redux";
-import { CanvasContext } from "../../../index";
+import { CanvasContext } from "../../../main";
 import { fabric } from "fabric";
 
 function UploadsDrawer() {
   const canvas = React.useContext(CanvasContext);
   const [images, setImages] = useState([]);
-  const user = useSelector((state) => state.user.currentUser);
+  // const user = useSelector((state) => state.user.currentUser);
 
   const handleFile = (e) => {
-    // e.preventDefault();
-    // const data = new FormData();
-    // data.append("image", e.target.files[0]);
-    // data.append("userId", user.id);
-    // data.append("name", e.target.files[0].name);
+    e.preventDefault();
+    const data = new FormData();
+    data.append("image", e.target.files[0]);
+    data.append("userId", user.id);
+    data.append("name", e.target.files[0].name);
 
-    // const config = {
-    //   headers: {
-    //     "content-type": "multipart/form-data",
-    //   },
-    // };
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
     // Axios.post("https://localhost:3001/image/upload", data, config)
     //   .then((res) => {
     //     setImages([...images, res.data.image]);

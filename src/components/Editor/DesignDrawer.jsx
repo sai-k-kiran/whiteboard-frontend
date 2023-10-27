@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 import ToolsNav from "./ToolsNav";
-// import ElementsDrawer from "./Drawer/ElementsDrawer";
-// import TextDrawer from "./Drawer/TextDrawer";
-// import UnsplashDrawer from "./Drawer/UnsplashDrawer";
-// import UploadsDrawer from "./Drawer/UploadsDrawer";
+import ElementsDrawer from "./Drawer/ElementsDrawer";
+import TextDrawer from "./Drawer/TextDrawer";
+import UnsplashDrawer from "./Drawer/UnsplashDrawer";
+import UploadsDrawer from "./Drawer/UploadsDrawer";
 import "./DesignDrawer.css";
 
 function DesignDrawer() {
   const drawers = [
-    // <UnsplashDrawer />,
-    // <ElementsDrawer />,
-    // <TextDrawer />,
-    // <UploadsDrawer />
+    <UnsplashDrawer />,
+    <ElementsDrawer />,
+    <TextDrawer />,
+    <UploadsDrawer />
   ];
 
   const [drawer, setDrawer] = useState(1);
