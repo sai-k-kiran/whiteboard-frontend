@@ -40,3 +40,7 @@
   .reg-input:focus {
     border: 1px solid teal;
   }
+  .error p{
+    margin-top:0;
+    color: red;
+  }

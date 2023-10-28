@@ -70,6 +70,10 @@
     margin: 10px 0;
     background-color: blueviolet;
     color: white;
+    cursor: pointer;
+  }
+  .newTemplate:hover{
+    background-color: rgb(105, 15, 190);
   }
   .category-header {
     text-align: center;

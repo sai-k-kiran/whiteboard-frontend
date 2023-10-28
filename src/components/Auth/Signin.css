@@ -14,3 +14,7 @@
     background-color: #ddd;
     width: 40%;
   }
+  .errors p{
+    color: red;
+    margin-top:0;
+  }

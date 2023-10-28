@@ -16,7 +16,7 @@ function DesignDrawer() {
   ];
 
   const [drawer, setDrawer] = useState(1);
-  const [closed, setClosed] = useState(false);
+  const [closed, setClosed] = useState(true);
   const [animate, setAnimate] = useState(true);
 
   function changeDrawer(id) {

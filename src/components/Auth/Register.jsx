@@ -4,34 +4,48 @@ import { Link, useNavigate } from "react-router-dom";
 import Vector from "../images/loginpic.svg";
 import { FaAngleDoubleLeft } from "react-icons/fa";
 import Navbar from "../Home/Navbar";
-// import Axios from "axios";
-// import { useDispatch } from "react-redux";
-// import { setCurrentUser } from "../redux/User/UserActions";
+import Axios from "axios";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../redux/User/UserActions";
+import { saveUser } from "../Services/client"; 
 
 function Register() {
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [error, setError] = useState(false)
+  const [invalid, setInValid] = useState(true)
 
-  const handleChange = (e) => {
-    const input = e.target.name;
-    const value = e.target.value;
-    setData({ ...data, [input]: value });
-  };
+  function isValidEmail(email) {
+    if(email.length != 0)
+        return /\S+@\S+\.\S+/.test(email);
+    return true
+  }
 
-//   Axios.defaults.withCredentials = true;
+  const setPassword = (e) => {
+    setData((data) => ({ ...data, password: e.target.value }));
+  }
+  const setname = (e) => {
+      setData((data) => ({ ...data, name: e.target.value }));
+    }
+  const setemail = (e) => {
+      if(e.target.value == ""){
+          setError("Email is required")
+      }
+      else if(!isValidEmail(e.target.value)) {
+        setError('Email is invalid')
+      } else {
+        setError(null);
+        setInValid(false)
+      }
+      setData((data) => ({ ...data, email: e.target.value }))
+  }
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    // Axios.post(
-    //   "https://localhost:3001/register",
-    //   { name: data.name, email: data.email, password: data.password },
-    //   { withCredentials: true }
-    // ).then((response) => {
-    //   dispatch(setCurrentUser(response.data.user));
-    //   localStorage.setItem("user", JSON.stringify(response.data.user));
-    //   navigate("/home");
-    // });
+  const handleSubmit = (data) => {
+    saveUser(data).then((res) => {
+      navigate("/login")
+      console.log("success", res)
+    }).catch(err => console.log(err.response))
   };
   return (
     <>
@@ -51,25 +65,33 @@ function Register() {
                         className="reg-input"
                         name="name"
                         value={data.name}
-                        onChange={handleChange}
+                        onChange={e => setname(e)}
                         placeholder="Name"
                         />
                         <input
+                        type="email"
                         className="reg-input"
                         name="email"
                         value={data.email}
-                        onChange={handleChange}
+                        onChange={e => setemail(e)}
                         placeholder="Email"
                         />
+                        <div className="error">
+                          {data.email.length != 0 && error ? (
+                            <p>Email is invalid</p>
+                          ) : ''}
+                        </div>
                         <input
+                        type="password"
                         className="reg-input"
                         name="password"
                         value={data.password}
-                        onChange={handleChange}
+                        onChange={e => setPassword(e)}
                         placeholder="Password"
                         />
                         <p className="login-foot">Use 6 or more characters</p>
-                        <button className="signup-btn login-btn">Sign Up with Email</button>
+                        <button onClick={() => handleSubmit(data)}
+                        className="signup-btn login-btn">Sign Up with Email</button>
                     </form>
                     <p className="login-foot">
                         By signing up, you agree to Gwaphics' Terms of Use and Privacy

@@ -8,27 +8,37 @@ import { FiSearch } from "react-icons/fi";
 import Loading from "../../Home/Loading";
 
 
-const iterates = [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }];
+const iterates = [{ a: 1 }, { b: 2 }, { c: 3 }];
+const pages = [1,2,3,4,5]
 
 function UnsplashDrawer() {
   const canvas = React.useContext(CanvasContext);
   const [images, setImages] = useState([]);
   const [keyword, setKeyword] = useState("");
 
-  // useEffect(() => {
-  //   Axios.get(
-  //     `https://api.unsplash.com/photos/?client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
-  //   ).then((response) => {
-  //     setImages(response.data)
-  //     console.log(images)
-  //   });
-  // }, []);
+  const changePage = (page) => {
+    Axios.get(
+      `https://api.unsplash.com/photos?page=${page}&client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
+    ).then((response) => {
+      setImages(response.data)
+    });
+  }
+
+  useEffect(() => {
+    Axios.get(
+      `https://api.unsplash.com/photos/?client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
+    ).then((response) => {
+      setImages(response.data)
+    });
+  }, []);
 
   async function submitQuery() {
-    // const request = await Axios.get(
-    //   `https://api.unsplash.com/search/photos?query=${keyword}&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`
-    // );
-    // setImages(request.data.results);
+    if(keyword.length != 0){
+      const request = await Axios.get(
+        `https://api.unsplash.com/search/photos?query=${keyword}&client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
+      );
+      setImages(request.data.results);
+    }
   }
 
   function addPhoto(url) {
@@ -69,27 +79,24 @@ function UnsplashDrawer() {
                   <div
                     key={image.id}
                     className="unsplash-image"
-                    onClick={() => addPhoto(image.regular)}
+                    onClick={() => addPhoto(image.urls.regular)}
                   >
                     <img src={image.urls.thumb} alt="photos" />
                   </div>
                 );
               })
             : iterates.map((item) => <Loading />)}
-          {/* {images &&
-              images.map((image) => {
-                return (
-                  <div
-                    key={image.id}
-                    className="unsplash-image"
-                    onClick={() => addPhoto(image.urls.full)}
-                  >
-                    <img src={image.urls.thumb} alt="photos" />
-                  </div>
-                );
-              })} */}
         </div>
       </div>
+      <div className="pagination">
+          {keyword.length == 0 && pages.map((page) => {
+              return (
+                <button className="pageButton" onClick={() => changePage(page)}>
+                  {page}
+                </button>
+              )            
+          })}
+        </div>
     </>
   );
 }

@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Logout from "../Auth/logout";
 import Logo from "../Images/capture.png"
-// import NewDesignDropDown from "../Dropdowns/NewDesignDrop";
 import { addJson } from "../redux/Design/DesignActions";
-import { IoLanguage } from "react-icons/io5";
+import { useAuth } from "../context/authContext.jsx";
 
 function Navbar() {
   const [toggle, setToggle] = useState(false);
@@ -17,8 +16,14 @@ function Navbar() {
     dispatch(addJson(""));
   }
 
+  function createNew() {
+    navigate("/editor");
+    dispatch(addJson(""));
+    setTimeout(addTemplate, 1000);
+  }
+
   return (
-    <div className="nav">
+    <div className="navbar">
       <nav>
         <img className="logo" src={Logo} alt="logo" />
         <div>
@@ -26,21 +31,20 @@ function Navbar() {
             {user ? (
               <li className="login-user">
                 <h3 style={{ color: "black" }}>
-                  Welcome User
+                  Welcome {user.name}
                 </h3>
               </li>
             ) : null}
             {user ? (
               <li>
-                <Link to="/design">
+                <Link to="/editor">
                   <button
                     className="create-design"
                     onClick={setZero}
-                    onClick={()=>setToggle(!toggle)}
+                    // onClick={()=>setToggle(!toggle)}
                   >
                     Create design
                   </button>
-                  {toggle ? <NewDesignDropDown /> : null}
                 </Link>
               </li>
             ) : null}

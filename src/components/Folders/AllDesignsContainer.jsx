@@ -26,57 +26,57 @@ function AllDesignsContainer() {
 const design = []
 
   function addTemplate() {
-    // canvas.current?.add(
-    //   new fabric.IText(user.name, {
-    //     left: 100,
-    //     top: 100,
-    //     fill: "white",
-    //   })
-    // );
-    // canvas.current?.add(
-    //   new fabric.IText(user.phone || "", {
-    //     left: 100,
-    //     top: 200,
-    //     fill: "white",
-    //   })
-    // );
-    // canvas.current?.add(
-    //   new fabric.IText(user.company || "", {
-    //     left: 100,
-    //     top: 300,
-    //     fill: "white",
-    //   })
-    // );
-    // canvas.current?.add(
-    //   new fabric.IText(user.address || "", {
-    //     left: 100,
-    //     top: 400,
-    //     fill: "white",
-    //   })
-    // );
-    // fabric.Image.fromURL(
-    //   `https://localhost:3001/Logos/${user.logo}`,
-    //   function (oImg) {
-    //     oImg.scale(0.2);
-    //     canvas.current?.add(oImg);
-    //     canvas.current.renderAll();
-    //   },
-    //   { crossOrigin: "anonymous" }
-    // );
-    // const image =
-    //   "https://images.unsplash.com/photo-1538991383142-36c4edeaffde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8ZnJlZXxlbnwwfHwwfHw%3D&w=1000&q=80";
-    // canvas.current.setBackgroundImage(
-    //   image,
-    //   function () {
-    //     let img = canvas.current.backgroundImage;
-    //     img.originX = "left";
-    //     img.originY = "top";
-    //     img.scaleX = canvas.current.getWidth() / img.width;
-    //     img.scaleY = canvas.current.getHeight() / img.height;
-    //     canvas.current.renderAll();
-    //   },
-    //   { crossOrigin: "anonymous" }
-    // );
+    canvas.current?.add(
+      new fabric.IText(user.name, {
+        left: 100,
+        top: 100,
+        fill: "white",
+      })
+    );
+    canvas.current?.add(
+      new fabric.IText(user.phone || "", {
+        left: 100,
+        top: 200,
+        fill: "white",
+      })
+    );
+    canvas.current?.add(
+      new fabric.IText(user.company || "", {
+        left: 100,
+        top: 300,
+        fill: "white",
+      })
+    );
+    canvas.current?.add(
+      new fabric.IText(user.address || "", {
+        left: 100,
+        top: 400,
+        fill: "white",
+      })
+    );
+    fabric.Image.fromURL(
+      `https://localhost:3001/Logos/${user.logo}`,
+      function (oImg) {
+        oImg.scale(0.2);
+        canvas.current?.add(oImg);
+        canvas.current.renderAll();
+      },
+      { crossOrigin: "anonymous" }
+    );
+    const image =
+      "https://images.unsplash.com/photo-1538991383142-36c4edeaffde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8ZnJlZXxlbnwwfHwwfHw%3D&w=1000&q=80";
+    canvas.current.setBackgroundImage(
+      image,
+      function () {
+        let img = canvas.current.backgroundImage;
+        img.originX = "left";
+        img.originY = "top";
+        img.scaleX = canvas.current.getWidth() / img.width;
+        img.scaleY = canvas.current.getHeight() / img.height;
+        canvas.current.renderAll();
+      },
+      { crossOrigin: "anonymous" }
+    );
   }
 
   const draw = (template) => {
@@ -135,11 +135,7 @@ const design = []
             );
           })}
         </div>
-        <div className="newBlock">
-          <button className="newTemplate" onClick={createNew}>
-            New
-          </button>
-        </div>
+       
       </div>
     </>
   );

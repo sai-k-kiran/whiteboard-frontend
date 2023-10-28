@@ -1,41 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Home/Navbar";
 import "./Signin.css";
 import { Link, useNavigate } from "react-router-dom";
 import Vector from "../images/loginpic.svg";
 import { FaAngleDoubleLeft } from "react-icons/fa";
-// import Axios from "axios";
-// import { useDispatch } from "react-redux";
-// import { setCurrentUser } from "../redux/User/UserActions";
-// import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../redux/User/UserActions";
+import { useAuth } from "../context/authContext.jsx";
 
 function SignIn() {
-  const [data, setData] = useState({ email: "", password: "" });
+  const {user, login} = useAuth()
+  const [data, setData] = useState({ username: "", password: "" });
   const navigate = useNavigate();
-//   const dispatch = useDispatch();
-//   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [error, setError] = useState(false)
+  const [invalid, setInValid] = useState(true)
 
-  const handleChange = (e) => {
-    const input = e.target.name;
-    const value = e.target.value;
-    setData({ ...data, [input]: value });
-  };
+  function isValidEmail(email) {
+    if(email.length != 0)
+        return /\S+@\S+\.\S+/.test(email);
+    return true
+}
 
-//   Axios.defaults.withCredentials = true;
+const setPassword = (e) => {
+    setData((data) => ({ ...data, password: e.target.value }));
+  }
+  const setEmail = (e) => {
+    if(!isValidEmail(e.target.value)) {
+      setError(true)
+    } else {
+      setError(null);
+    }
+    setData((data) => ({ ...data, username: e.target.value }))
+  }
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if(data.password != "" && data.username != "" && !error) setInValid(false)
+    else setInValid(true)
+  }, [data.username, data.password])
+
+
+  const handleSubmit = (data) => {
     // e.preventDefault();
-    // Axios.post(
-    //   "https://localhost:3001/login",
-    //   { email: data.email, password: data.password },
-    //   { withCredentials: true }
+    // axios.post(
+    //   `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/login`,
+    //   { email: data.email, password: data.password }
     // ).then((response) => {
     //   if (response) {
     //     dispatch(setCurrentUser(response.data.user));
     //     localStorage.setItem("user", JSON.stringify(response.data.user));
-    //     navigate("/home/allDesigns");
+    //     navigate("/home/allDesigns")
+    //     console.log(response.data.user)
     //   }
     // });
+    login(data).then((res) => {
+      navigate("/home/allDesigns")
+      dispatch(setCurrentUser(res.data.userDTO))
+    }).catch(err => console.log(err.response))
   };
 
   return (
@@ -56,17 +77,27 @@ function SignIn() {
               className="reg-input"
               name="email"
               value={data.email}
-              onChange={handleChange}
+              onChange={e => setEmail(e)}
               placeholder="E-mail"
-            />
+            />{
+              <div className="errors">
+                {data.username.length != 0 && error ? (
+                  <p>Email is invalid</p>
+                ) : ''}
+              </div>
+            }
             <input
+              type="password"
               className="reg-input"
               value={data.password}
-              onChange={handleChange}
+              onChange={e => setPassword(e)}
               name="password"
               placeholder="password"
             />
-            <button className="signup-btn login-btn">Sign In</button>
+            <button type="button" disabled={invalid}
+            className="signup-btn login-btn"
+            onClick={() => handleSubmit(data)}>
+              Sign In</button>
           </form>
           <p className="login-foot">
             New to Whiteboard? <Link to="/register">Create an account</Link>

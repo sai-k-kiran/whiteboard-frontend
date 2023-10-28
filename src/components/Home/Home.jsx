@@ -3,10 +3,9 @@ import Navbar from "./Navbar";
 import "./Home.css";
 import { FiGrid, FiUploadCloud, FiFolder } from "react-icons/fi";
 import { Link, Outlet } from "react-router-dom";
-// import Modal from "../Auth/Modal";
-// import { useSelector, useDispatch } from "react-redux";
-// import { useTranslation } from "react-i18next";
-// import { setModal } from "../redux/User/UserActions";
+import Modal from "../Auth/Modal";
+import { useSelector, useDispatch } from "react-redux";
+import { setModal } from "../redux/User/UserActions";
 
 const Items = [
   { id: 1, name: "All Designs", icon: <FiGrid />, link: "/home/allDesigns" },
@@ -17,25 +16,22 @@ const Items = [
 function Home() {
   const [hover, setHover] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const show = null
-//   const user = useSelector((state) => state.user.currentUser);
-//   const show = useSelector((state) => state.user.modal);
-//   const dispatch = useDispatch();
-//   const { t } = useTranslation();
+  const user = useSelector((state) => state.user.currentUser);
+  const show = useSelector((state) => state.user.modal);
+  const dispatch = useDispatch();
 
   function ModalOp() {
-    // if (user.company === null) {
-    //   dispatch(setModal("show"));
-    // } else {
-    //   dispatch(setModal("hide"));
-    // }
+    if (user.company === null) {
+      dispatch(setModal("show"));
+    } else {
+      dispatch(setModal("hide"));
+    }
   }
   useEffect(() => {
-    // const timer = setTimeout(ModalOp, 3000);
-    // return () => {
-    //   clearTimeout(timer);
-    // };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const timer = setTimeout(ModalOp, 3000);
+    return () => {
+      clearTimeout(timer);
+    }
   }, []);
 
   return (
