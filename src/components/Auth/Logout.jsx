@@ -5,6 +5,7 @@ import { setCurrentUser } from "../redux/User/UserActions";
 import UserDropDown from "../Home/UserDropDown";
 import { useNavigate } from "react-router";
 import User from "../images/user.png";
+import {CiUser} from "react-icons/ci";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function Logout() {
     <>
       <div className="user-icon">
         <button className="drop-btn" onClick={() => setToggleDrop(!toggleDrop)}>
-          <img className="user-avatar" src={User} alt="profile img" />
+          <CiUser style={{fontSize: "30px"}}/>
         </button>
         {toggleDrop ? <UserDropDown Logout={logout} /> : null}
       </div>

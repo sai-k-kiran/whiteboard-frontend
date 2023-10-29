@@ -5,15 +5,10 @@ import {jwtDecode} from "jwt-decode"
 const AuthContext = createContext({})
 
 const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null)
-
     const setUserFromToken = () => {
         let token = localStorage.getItem("token");
         if(token) {
-            token = jwtDecode(token);
-            setUser({
-                name: token.sub,
-            })
+            token = jwtDecode(token)
         }
     }
     useEffect(() => {
@@ -26,7 +21,6 @@ const AuthProvider = ({children}) => {
                 const jwtToken = res.data.token
                 localStorage.setItem("token", jwtToken)
 
-                setUser({name: res.data.userDTO.name})
                 resolve(res)
             }).catch(err => {
                 reject(err)
@@ -53,7 +47,6 @@ const AuthProvider = ({children}) => {
     }
     return (
         <AuthContext.Provider value={{
-            user,
             login,
             logOut,
             isUserAuthenticated

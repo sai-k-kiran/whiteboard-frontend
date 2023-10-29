@@ -30,10 +30,10 @@ function Register() {
     }
   const setemail = (e) => {
       if(e.target.value == ""){
-          setError("Email is required")
+          setError(true)
       }
       else if(!isValidEmail(e.target.value)) {
-        setError('Email is invalid')
+        setError(true)
       } else {
         setError(null);
         setInValid(false)
@@ -43,8 +43,7 @@ function Register() {
 
   const handleSubmit = (data) => {
     saveUser(data).then((res) => {
-      navigate("/login")
-      console.log("success", res)
+      navigate("/signin")
     }).catch(err => console.log(err.response))
   };
   return (

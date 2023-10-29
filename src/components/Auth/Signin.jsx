@@ -41,21 +41,10 @@ const setPassword = (e) => {
 
 
   const handleSubmit = (data) => {
-    // e.preventDefault();
-    // axios.post(
-    //   `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/login`,
-    //   { email: data.email, password: data.password }
-    // ).then((response) => {
-    //   if (response) {
-    //     dispatch(setCurrentUser(response.data.user));
-    //     localStorage.setItem("user", JSON.stringify(response.data.user));
-    //     navigate("/home/allDesigns")
-    //     console.log(response.data.user)
-    //   }
-    // });
     login(data).then((res) => {
       navigate("/home/allDesigns")
       dispatch(setCurrentUser(res.data.userDTO))
+
     }).catch(err => console.log(err.response))
   };
 

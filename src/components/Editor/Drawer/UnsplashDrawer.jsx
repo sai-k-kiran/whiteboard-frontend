@@ -89,9 +89,9 @@ function UnsplashDrawer() {
         </div>
       </div>
       <div className="pagination">
-          {keyword.length == 0 && pages.map((page) => {
+          {keyword.length == 0 && pages.map((id, page) => {
               return (
-                <button className="pageButton" onClick={() => changePage(page)}>
+                <button className="pageButton" key={id} onClick={() => changePage(page)}>
                   {page}
                 </button>
               )            

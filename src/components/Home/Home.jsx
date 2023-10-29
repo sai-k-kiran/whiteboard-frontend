@@ -4,7 +4,7 @@ import "./Home.css";
 import { FiGrid, FiUploadCloud, FiFolder } from "react-icons/fi";
 import { Link, Outlet } from "react-router-dom";
 import Modal from "../Auth/Modal";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import { setModal } from "../redux/User/UserActions";
 
 const Items = [
@@ -13,20 +13,22 @@ const Items = [
   { id: 3, name: "Uploads", icon: <FiUploadCloud />, link: "/home/uploads" },
 ];
 
-function Home() {
-  const [hover, setHover] = useState("");
-  const [openModal, setOpenModal] = useState(false);
+function Home(){
+  const [hover, setHover] = React.useState("");
   const user = useSelector((state) => state.user.currentUser);
   const show = useSelector((state) => state.user.modal);
   const dispatch = useDispatch();
 
+  console.log(user)
+
   function ModalOp() {
-    if (user.company === null) {
+    if (user.companyName == null || user.companyName.length == 0) {
       dispatch(setModal("show"));
     } else {
       dispatch(setModal("hide"));
     }
   }
+
   useEffect(() => {
     const timer = setTimeout(ModalOp, 3000);
     return () => {
@@ -36,7 +38,7 @@ function Home() {
 
   return (
     <div>
-      {show === "show" ? <Modal setOpenModal={setOpenModal} /> : null}
+      {show === "show" ? <Modal /> : null}
       <Navbar />
       <hr></hr>
       <div className="home-tab">
@@ -71,4 +73,8 @@ function Home() {
   );
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return { user: state.user.currentUser };
+} 
+
+export default connect(mapStateToProps)(Home);

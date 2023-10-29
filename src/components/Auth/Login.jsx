@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "../Home/Navbar";
-// import { FiUserCheck } from "react-icons/fi";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import Vector from "../images/loginpic.svg";

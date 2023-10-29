@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiChevronLeft, FiSave, FiShare2, FiDownload } from "react-icons/fi";
 import "./Editornav.css";
 import { useNavigate } from "react-router";
 import { CanvasContext } from "../../main";
-import Axios from "axios";
-// import { useSelector, useDispatch } from "react-redux";
-// import ShareDropDown from "../Dropdowns/ShareDropDown";
-// import UpModal from "../Auth/UpModal";
-// import { openModal } from "../redux/User/UserActions";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import Modal from "../Auth/Modal";
+import { openModal } from "../redux/User/UserActions";
 
 function EditorNav() {
-  const [toggle, setToggle] = useState(false);
-  // const dispatch = useDispatch();
+  const [openModal, setOpenModal] = useState(false);
+  const dispatch = useDispatch();
 
-  // const user = useSelector((state) => state.user.currentUser);
-  // const pop_up = useSelector((state) => state.user.popup);
-  const user = null
-  const pop_up = null
+  const user = useSelector((state) => state.user.currentUser);
+  const show = useSelector((state) => state.user.modal);
+
   const canvas = React.useContext(CanvasContext);
   const navigate = useNavigate();
+
+  const [designs, setDesigns] = useState({design: "", user: {}})
 
   const download = () => {
     const url = canvas.current.toDataURL("image/jpeg", 1.0);
@@ -29,24 +29,40 @@ function EditorNav() {
   };
 
   const save = () => {
-    // const data = canvas.current.toJSON();
-    // const obj = JSON.stringify(data);
-    // Axios.post(
-    //   "https://localhost:3001/saved/design_upload",
-    //   { data: obj, userId: user.id },
-    //   { withCredentials: true }
-    // )
-    //   .then((res) => {
-    //     if (res) {
-    //       alert("Design saved");
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
+    const data = canvas.current.toJSON();
+    const obj = JSON.stringify(data);
+
+    setDesigns((designs) => ({...designs, design: obj }));
+    setDesigns((designs) => ({...designs, user: user}))
+
+    // console.log(JSON.stringify(designs.user))
+
+    saveDesign(designs)
   };
+
+  const saveDesign = async(design) => {
+    try{
+      return await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/designs`,
+          design
+      )
+      .then(res => console.log(res))
+    }
+    catch(err){
+      console.log(err)
+    }
+    // alert(JSON.stringify(design))
+  }
+  let pop = false
+
+  // useEffect(() => {
+  //   if(pop_up) pop = true
+  //   else pop = false
+  // }, [pop_up])
 
   return (
     <div className="editorNav">
-      {pop_up === "show" ? <UpModal /> : null}
+      {show === "show" ? <Modal /> : null}
       <nav className="leftNav">
         <div>
           <button

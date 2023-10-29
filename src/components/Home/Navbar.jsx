@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Logout from "../Auth/logout";
-import Logo from "../Images/capture.png"
+import Logo from "../Images/logo.svg"
 import { addJson } from "../redux/Design/DesignActions";
-import { useAuth } from "../context/authContext.jsx";
 
 function Navbar() {
-  const [toggle, setToggle] = useState(false);
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-
-  function setZero() {
-    dispatch(addJson(""));
-  }
+  const navigate = useNavigate()
 
   function createNew() {
     navigate("/editor");
@@ -40,8 +35,7 @@ function Navbar() {
                 <Link to="/editor">
                   <button
                     className="create-design"
-                    onClick={setZero}
-                    // onClick={()=>setToggle(!toggle)}
+                    onClick={() => createNew()}
                   >
                     Create design
                   </button>

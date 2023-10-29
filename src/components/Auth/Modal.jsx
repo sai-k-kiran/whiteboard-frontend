@@ -5,14 +5,16 @@ import Axios from "axios";
 import { setCurrentUser, setModal } from "../redux/User/UserActions";
 import { CgCloseO } from "react-icons/cg";
 import { updateUser } from "../Services/client";
+import { useNavigate } from "react-router-dom";
 
-function Modal({ setOpenModal }) {
+function Modal() {
   const [data, setData] = useState({ location: "", phoneNum: "", companyName: "" });
   const [logo, setLogo] = useState({ image: "", name: "" });
   const [error, setError] = useState(false);
 
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const input = e.target.name;
@@ -49,14 +51,23 @@ function Modal({ setOpenModal }) {
       },
     };
       
-      updateUser(user.id, data).then((response) => {
-        dispatch(setCurrentUser(response.data.user));
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+      updateUser(user.id, data)
+      .then((response) => {
+        // dispatch(setCurrentUser(response.data.userDTO));
+        console.log(response.data.userDTO)
+
         alert("Data updated");
-        dispatch(setModal("hide"));
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+      .finally(
+        dispatch(setModal("hide")),
+        loading()
+      )
+  }
+
+  const loading = () =>{
+
+  }
 
   return (
     <div className="modalBackground">
