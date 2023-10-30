@@ -19,8 +19,6 @@ function Home(){
   const show = useSelector((state) => state.user.modal);
   const dispatch = useDispatch();
 
-  console.log(user)
-
   function ModalOp() {
     if (user.companyName == null || user.companyName.length == 0) {
       dispatch(setModal("show"));

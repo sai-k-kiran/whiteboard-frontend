@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./Login.css";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/User/UserActions";
-import UserDropDown from "../Home/UserDropDown";
+import UserDropDown from "../Home/UserDropDown.jsx";
 import { useNavigate } from "react-router";
-import User from "../images/user.png";
 import {CiUser} from "react-icons/ci";
+import  {connect}  from "react-redux";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -30,4 +30,8 @@ function Logout() {
   );
 }
 
-export default Logout;
+function mapStateToProps(state) {
+  return { user: state.user.currentUser };
+} 
+
+export default connect(mapStateToProps)(Logout);

@@ -25,7 +25,7 @@ const UserDropDown = ({ Logout }) => {
             <small>{user.email}</small>
           </div>
         </li>
-        <li>
+        <li> 
           <hr className="hr" />
         </li>
         <li className="listItem" onClick={() => dispatch(setModal("show"))}>

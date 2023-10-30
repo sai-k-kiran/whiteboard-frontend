@@ -7,87 +7,36 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addJson } from "../redux/Design/DesignActions";
 import Axios from "axios";
-// import _ from "lodash";
+import Loading from "../Home/Loading";
+import {ImSearch} from "react-icons/im"
+import {BiRevision} from "react-icons/bi"
+
+const pages = [1,2,3,4,5,6]
 
 function AllDesignsContainer() {
   const [templates, setTemplates] = useState([]);
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   const canvas = React.useContext(CanvasContext);
   const navigate = useNavigate();
 
-  function createNew() {
-    navigate("/editor");
-    dispatch(addJson(""));
-    setTimeout(addTemplate, 1000);
+  const [toggleDrop, setToggleDrop] = useState(false);
+
+  function draw(image) {
+    dispatch(addJson(image))
+    navigate("/editor")
   }
 
-//   const design = _.groupBy(templates, "category");
-const design = []
-
-  function addTemplate() {
-    canvas.current?.add(
-      new fabric.IText(user.name, {
-        left: 100,
-        top: 100,
-        fill: "white",
-      })
-    );
-    canvas.current?.add(
-      new fabric.IText(user.phone || "", {
-        left: 100,
-        top: 200,
-        fill: "white",
-      })
-    );
-    canvas.current?.add(
-      new fabric.IText(user.company || "", {
-        left: 100,
-        top: 300,
-        fill: "white",
-      })
-    );
-    canvas.current?.add(
-      new fabric.IText(user.address || "", {
-        left: 100,
-        top: 400,
-        fill: "white",
-      })
-    );
-    fabric.Image.fromURL(
-      `https://localhost:3001/Logos/${user.logo}`,
-      function (oImg) {
-        oImg.scale(0.2);
-        canvas.current?.add(oImg);
-        canvas.current.renderAll();
-      },
-      { crossOrigin: "anonymous" }
-    );
-    const image =
-      "https://images.unsplash.com/photo-1538991383142-36c4edeaffde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8ZnJlZXxlbnwwfHwwfHw%3D&w=1000&q=80";
-    canvas.current.setBackgroundImage(
-      image,
-      function () {
-        let img = canvas.current.backgroundImage;
-        img.originX = "left";
-        img.originY = "top";
-        img.scaleX = canvas.current.getWidth() / img.width;
-        img.scaleY = canvas.current.getHeight() / img.height;
-        canvas.current.renderAll();
-      },
-      { crossOrigin: "anonymous" }
-    );
-  }
-
-  const draw = (template) => {
-    // const data = JSON.parse(template.data);
+  const drawFromSaved = (template) => {
+    const data = JSON.parse(template.data);
     
-    // data.objects[0].text = user.name;
-    // data.objects[1].text = user.phone || "";
-    // data.objects[2].text = user.company || "";
-    // data.objects[3].text = user.address || "";
-    // data.objects[4].src = "https://localhost:3001/Logos/" + user.logo || "";
-    // setTimeout(dispatch(addJson(data)), 1000);
+    data.objects[0].text = user.name;
+    data.objects[1].text = user.phoneNum || "";
+    data.objects[2].text = user.companyName || "";
+    data.objects[3].text = user.location || "";
+
+    setTimeout(dispatch(addJson(data)), 1000);
   };
 
   async function Templates() {
@@ -101,41 +50,73 @@ const design = []
     //   })
     //   .catch((err) => console.log(err));
   }
+  
+  // useEffect(() => {
+  //   Axios.get(
+  //     `https://api.unsplash.com/photos/?client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
+  //   ).then((response) => {
+  //     setTemplates(response.data)
+  //   });
+  // }, []);
+
+  async function submitQuery() {
+    if(keyword.length != 0){
+      const request = await Axios.get(
+        `https://api.unsplash.com/search/photos?query=${keyword}&client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
+      );
+      setTemplates(request.data.results);
+    }
+  }
+
+  const [animate, setAnimate] = useState(false);
+  const [keyword, setKeyword] = useState("")
+
   useEffect(() => {
-    Templates();
+    setAnimate(true);
   }, []);
+
 
   return (
     <>
       <div className="template-container">
+        <div className="random-img">
+            <ImSearch onClick={() => setToggleDrop(!toggleDrop)}/>
+        </div>
+        {toggleDrop ? 
+             <div className={`search-box-random ${animate ? "animate" : ""}`}>
+               <ul className="search-list">
+                 <li className="profile">
+                   <div className="search-box-img">
+                     <input value={keyword} name="name"
+                     onChange={(e) => setKeyword(e.target.value)}
+                     placeholder="Search images"/>
+                     <button onClick={submitQuery}>Search</button>
+                   </div>
+                   </li>
+               </ul>
+             </div>
+           : null}
         <div className="designList">
-          {Object.entries(design).map(([key, value]) => {
-            return (
-              <div key={value.toString()}>
-                <div className="category-header">
-                  <h2>{key}</h2>
-                </div>
-                <div className="templates">
-                  {value.map((item) => {
+            <ul className="templates">
+                {templates != 0
+                ? templates.map((item) => {
                     return (
-                      <div className="savedDesigns" key={item.id}>
-                        <Link to="/design" style={{ color: "black" }}>
+                      <li className="savedDesigns" key={item.id}>
+                        <Link to="/editor" style={{ color: "black" }}>
                           <img
-                            src={`https://localhost:3001/Thumbnails/${item.name}`}
+                            src={item.urls.thumb}
                             className="templateImage"
                             alt={item.name}
-                            onClick={() => draw(item)}
+                            onClick={() => draw(item.urls.regular)}
                           />
                         </Link>
-                      </div>
+                      </li>
                     );
-                  })}
-                </div>
-              </div>
-            );
-          })}
+                  })
+                : 
+                pages.map((page) => <Loading />)}
+              </ul>
         </div>
-       
       </div>
     </>
   );

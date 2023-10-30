@@ -35,8 +35,6 @@ function EditorNav() {
     setDesigns((designs) => ({...designs, design: obj }));
     setDesigns((designs) => ({...designs, user: user}))
 
-    // console.log(JSON.stringify(designs.user))
-
     saveDesign(designs)
   };
 
@@ -51,14 +49,7 @@ function EditorNav() {
     catch(err){
       console.log(err)
     }
-    // alert(JSON.stringify(design))
   }
-  let pop = false
-
-  // useEffect(() => {
-  //   if(pop_up) pop = true
-  //   else pop = false
-  // }, [pop_up])
 
   return (
     <div className="editorNav">
@@ -78,14 +69,6 @@ function EditorNav() {
         </div>
       </nav>
       <nav className="rightNav">
-        <button
-          type="button"
-          className="btn-icon btn-editor"
-          onClick={() => dispatch(openModal("show"))}
-        >
-          <FiSave />
-          <span className="ml-4">Upload</span>
-        </button>
         <button type="button" className="btn-icon btn-editor" onClick={save}>
           <FiSave />
           <span className="ml-4">Save</span>

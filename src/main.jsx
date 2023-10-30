@@ -60,7 +60,6 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
       <Provider store={store}>
          <AuthProvider>
             <PersistGate persistor={persistor}>
@@ -70,5 +69,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               </PersistGate>
          </AuthProvider>
       </Provider>
-  </React.StrictMode>,
 )
