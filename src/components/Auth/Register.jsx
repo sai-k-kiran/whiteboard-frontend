@@ -21,7 +21,7 @@ function Register() {
         return /\S+@\S+\.\S+/.test(email);
     return true
   }
-
+ 
   const setPassword = (e) => {
     setData((data) => ({ ...data, password: e.target.value }));
   }

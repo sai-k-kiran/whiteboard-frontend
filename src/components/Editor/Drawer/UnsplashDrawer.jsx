@@ -85,7 +85,7 @@ function UnsplashDrawer() {
                   </div>
                 );
               })
-            : iterates.map((item) => <Loading />)}
+            : iterates.map((item, id) => <Loading key={id} />)}
         </div>
       </div>
       <div className="pagination">

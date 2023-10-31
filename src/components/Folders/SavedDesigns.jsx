@@ -1,41 +1,40 @@
 import React, { useState, useEffect } from "react";
-// import Axios from "axios";
-// import { useSelector, useDispatch } from "react-redux";
+import Axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-// import { addJson } from "../redux/Design/DesignActions";
+import { addJson } from "../redux/Design/DesignActions";
 import "./AllDesigns.css";
 import { MdDeleteForever } from "react-icons/md";
-// import { useTranslation } from "react-i18next";
 
 function SavedDesigns() {
-//   const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user.currentUser);
   const [designs, setDesigns] = useState([]);
-//   const dispatch = useDispatch();
-//   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const draw = (design) => {
     // const data = JSON.parse(design.data);
     // setTimeout(dispatch(addJson(data)), 1000);
   };
 
-  async function Designs() {
-    // const userId = user.id;
-    // await Axios.post(
-    //   "https://localhost:3001/saved/design",
-    //   { userId },
-    //   { withCredentials: true }
-    // )
-    //   .then((response) => {
-    //     if (response) {
-    //       setDesigns(response.data.design);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
+  async function Designs(user) {
+    try{
+      return await Axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/designs`, 
+      user
+      )
+      .then((response) => {
+          setDesigns(response.data.designDTO);
+          console("success: ", response.data.designDTO)
+        })
+    }
+    catch(err){
+      (console.log("err: ", err))
+    }
+    
   }
+
   useEffect(() => {
-    Designs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    Designs(user)
+  }, [])
 
   const deleteSaved = (id) => {
     // Axios.post(
@@ -57,11 +56,11 @@ function SavedDesigns() {
             <div
               className="savedDesign"
               key={design.id}
-              onClick={() => draw(design)}
+              // onClick={() => draw(design)}
             >
-              <Link to="/design" style={{ color: "black" }}>
+              <Link to="/editor" style={{ color: "black" }}>
                 <h3>
-                  Design {design.id}: {design.createdAt.substr(0, 10)}
+                  Design: {design.id}
                 </h3>
               </Link>
               <MdDeleteForever
@@ -73,7 +72,7 @@ function SavedDesigns() {
         </div>
       ) : (
         <div className="headers">
-          <h1>No saved images</h1>
+          <h1>No saved templates</h1>
         </div>
       )}
     </>

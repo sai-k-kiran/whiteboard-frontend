@@ -12,9 +12,8 @@ function Navbar() {
   const navigate = useNavigate()
 
   function createNew() {
-    navigate("/editor");
     dispatch(addJson(""));
-    setTimeout(addTemplate, 1000);
+    navigate("/editor");
   }
 
   return (

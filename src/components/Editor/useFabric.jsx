@@ -9,7 +9,7 @@ const useFabric = () => {
     if (!element) return canvas.current?.dispose();
 
     fabric.Object.prototype.objectCaching = false;
-    canvas.current = new fabric.Canvas(element, { backgroundColor: "#FFFFFF" });
+    canvas.current = new fabric.Canvas(element, { backgroundColor: "#FFFFFF" }, {preserveObjectStacking: true});
     canvas.current.scaleX = canvas.current.getWidth() * 1.667;
     canvas.current.scaleY = canvas.current.getHeight() * 1.667;
     canvas.current.imageSmoothingEnabled = true;

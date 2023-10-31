@@ -3,8 +3,8 @@ import React from "react";
 function Loading() {
   return (
     <>
-      <div class="card">
-        <div class="card__image loading"></div>
+      <div className="card">
+        <div className="card__image loading"></div>
       </div>
     </>
   );
@@ -13,8 +13,8 @@ function Loading() {
 function LoadingCircle() {
   return (
     <>
-      <div class="loadingio-spinner-disk-euykzbk1md">
-        <div class="ldio-w8exjuny6n">
+      <div className="loadingio-spinner-disk-euykzbk1md">
+        <div className="ldio-w8exjuny6n">
           <div>
             <div></div>
             <div></div>

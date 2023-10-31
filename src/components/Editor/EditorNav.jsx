@@ -41,7 +41,7 @@ function EditorNav() {
   const saveDesign = async(design) => {
     try{
       return await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/v1/designs`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/designs/editor`,
           design
       )
       .then(res => console.log(res))

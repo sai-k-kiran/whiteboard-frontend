@@ -44,6 +44,9 @@
     font-weight: 500;
     background-color: #ffbc2a;
   }
+  .back{
+    margin-left: 20px;
+  }
   .range {
     margin-right: 20px;
   }

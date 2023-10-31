@@ -7,59 +7,61 @@ import { useSelector } from "react-redux";
 const Design = () => {
   const fabricRef = useFabric();
   const canvas = React.useContext(CanvasContext);
+
   const user = useSelector((state) => state.user.currentUser);
   const image = useSelector((state) => state.design.data);
-  console.log(image)
+  console.log(user)
   
   function createTemplate() {
     canvas.current?.add(
       new fabric.IText(user.name, {
-        left: 100,
-        top: 100,
-        fill: "white",
+        left: 200,
+        top: 30,
+        fill: "black",
+        zIndex: 99
       })
     );
     canvas.current?.add(
       new fabric.IText(user.phoneNum || "", {
-        left: 100,
-        top: 200,
-        fill: "white",
+        left: 200,
+        top: 100,
+        fill: "black",
       })
     );
     canvas.current?.add(
       new fabric.IText(user.companyName || "", {
-        left: 100,
-        top: 300,
-        fill: "white",
+        left: 200,
+        top: 170,
+        fill: "black",
       })
     );
     canvas.current?.add(
       new fabric.IText(user.location || "", {
-        left: 100,
-        top: 400,
-        fill: "white",
+        left: 200,
+        top: 240,
+        fill: "black",
       })
     );
     
-    canvas.current.setBackgroundImage(
-      image,
-      function () {
-        let img = canvas.current.backgroundImage;
-        img.originX = "left";
-        img.originY = "top";
-        img.scaleX = canvas.current.getWidth() / img.width;
-        img.scaleY = canvas.current.getHeight() / img.height;
-        canvas.current.renderAll();
-      },
-      { crossOrigin: "anonymous" }
-    )
-
-    console.log(canvas)
+    if(image.length != 0 && image != null){
+      canvas.current.setBackgroundImage(
+        image,
+        function () {
+          let img = canvas.current.backgroundImage;
+          img.originX = "left";
+          img.originY = "top";
+          img.scaleX = canvas.current.getWidth() / img.width;
+          img.scaleY = canvas.current.getHeight() / img.height;
+          canvas.current.renderAll();
+        },
+        { crossOrigin: "anonymous" }
+      )
+    }
   }
 
   useEffect(() => {
     createTemplate()
-  }, []);
+  }, [image])
 
   useEffect(() => {
     window.onbeforeunload = function () {

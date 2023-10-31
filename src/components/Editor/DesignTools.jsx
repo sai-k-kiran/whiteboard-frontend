@@ -31,6 +31,10 @@ function DesignTools() {
     const active = canvas.current.getActiveObject();
     canvas.current.bringToFront(active);
   };
+  const back = () => {
+    const active = canvas.current.getActiveObject();
+    canvas.current.sendToBack(active);
+  };
   const opacitySlider = (e) => {
     if (canvas.current.getActiveObject()) {
       canvas.current?.getActiveObject().set("opacity", e.target.value / 100);
@@ -68,6 +72,9 @@ function DesignTools() {
         />
         <button className="front-btn" onClick={front}>
           Bring to front
+        </button>
+        <button className="front-btn back" onClick={back}>
+          Send to back
         </button>
         <div className="font-family">
           <label htmlFor="font-family">Font</label>

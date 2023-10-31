@@ -114,7 +114,7 @@ function AllDesignsContainer() {
                     );
                   })
                 : 
-                pages.map((page) => <Loading />)}
+                pages.map((page, id) => <Loading key={id} />)}
               </ul>
         </div>
       </div>

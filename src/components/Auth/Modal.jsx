@@ -53,7 +53,7 @@ function Modal() {
       
       updateUser(user.id, data)
       .then((response) => {
-        // dispatch(setCurrentUser(response.data.userDTO));
+        dispatch(setCurrentUser(response.data.userDTO));
         console.log(response.data.userDTO)
 
         alert("Data updated");
@@ -134,4 +134,8 @@ function Modal() {
   );
 }
 
-export default Modal;
+function mapStateToProps(state) {
+  return { user: state.user.currentUser };
+} 
+
+export default connect(mapStateToProps)(Modal);
