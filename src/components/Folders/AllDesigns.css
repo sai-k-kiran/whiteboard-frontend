@@ -69,7 +69,7 @@
     width: 330px;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    margin: 0 30px 30px 0;
+    margin: 0 30px 10px 0;
     object-fit: cover;
   }
   .newTemplate {
@@ -121,11 +121,28 @@
   .delete-button {
     color: rgb(240, 78, 78);
     font-size: 26px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: 50%;
     z-index: 2;
     cursor: pointer;
+    margin-left: 20px;
+  }
+  .more-btn{
+    padding: 8px 10px;
+    background-color: rgb(0, 255, 119);
+    border-radius: 4px;
+    border: 1px solid white;
+    cursor: pointer;
+  }
+  .more-btn:hover{
+    background-color: rgb(3, 157, 75);
+    color: white;
+  }
+  .more-buttons{
+    width: 90%;
+    display: flex;
+    justify-content:right;
+    align-items: center;
   }
   /* --------------------Search bar-------------------------- */
   .search-box-random {

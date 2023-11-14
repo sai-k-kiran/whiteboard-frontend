@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import "./Modal.css";
 import Axios from "axios";
 import { setCurrentUser, setModal } from "../redux/User/UserActions";

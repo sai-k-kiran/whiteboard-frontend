@@ -39,26 +39,6 @@ function AllDesignsContainer() {
     setTimeout(dispatch(addJson(data)), 1000);
   };
 
-  async function Templates() {
-    // await Axios.post("https://localhost:3001/templates/all_templates", {
-    //   withCredentials: true,
-    // })
-    //   .then((response) => {
-    //     if (response) {
-    //       setTemplates(response.data.template);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
-  }
-  
-  // useEffect(() => {
-  //   Axios.get(
-  //     `https://api.unsplash.com/photos/?client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
-  //   ).then((response) => {
-  //     setTemplates(response.data)
-  //   });
-  // }, []);
-
   async function submitQuery() {
     if(keyword.length != 0){
       const request = await Axios.get(

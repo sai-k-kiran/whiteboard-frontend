@@ -10,7 +10,6 @@ const Design = () => {
 
   const user = useSelector((state) => state.user.currentUser);
   const image = useSelector((state) => state.design.data);
-  console.log(user)
   
   function createTemplate() {
     canvas.current?.add(
@@ -42,7 +41,7 @@ const Design = () => {
         fill: "black",
       })
     );
-    
+
     if(image.length != 0 && image != null){
       canvas.current.setBackgroundImage(
         image,
