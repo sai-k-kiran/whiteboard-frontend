@@ -44,6 +44,7 @@ function EditorNav() {
         `${import.meta.env.VITE_API_BASE_URL}/api/v1/designs/editor`,
           design
       )
+      .then(alert("design has been saved"))
       .then(res => console.log(res))
     }
     catch(err){

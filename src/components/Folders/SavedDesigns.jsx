@@ -6,11 +6,13 @@ import { addJson } from "../redux/Design/DesignActions";
 import "./AllDesigns.css";
 import { MdDeleteForever } from "react-icons/md";
 import Paintbrush from "../Images/paintbrush.jpg"
+import { useNavigate } from "react-router";
 
 function SavedDesigns() {
   const user = useSelector((state) => state.user.currentUser);
   const [designs, setDesigns] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const draw = (design) => {
     const data = JSON.parse(design.data);
@@ -50,6 +52,12 @@ function SavedDesigns() {
     }
   }
 
+  const edit = (design) => {
+    // const data = JSON.parse(design);
+    // dispatch(addJson(data));
+    // navigate("/editor")
+  }
+
   return (
     <>
       {designs.length > 0 ? (
@@ -66,9 +74,7 @@ function SavedDesigns() {
                           onClick={() => draw(item.designId)}
                         />
                         <div className="more-buttons">
-                          <Link to="/editor" style={{ color: "black" }}>
-                              <button className="more-btn">Continue</button>
-                          </Link>
+                          <button className="more-btn" onClick={draw(item.designId)}>Edit</button>
                           <MdDeleteForever
                             className="delete-button"
                             onClick={() => deleteSaved(item.designId)}

@@ -19,7 +19,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <nav>
-        <img className="logo" src={Logo} alt="logo" />
+            <img className="logo" src={Logo} alt="logo" />
         <div>
           <ul className="navlinks">
             {user ? (

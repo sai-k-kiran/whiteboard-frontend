@@ -34,6 +34,7 @@ function DesignTools() {
   const back = () => {
     const active = canvas.current.getActiveObject();
     canvas.current.sendToBack(active);
+    canvas.current.discardActiveObject();
   };
   const opacitySlider = (e) => {
     if (canvas.current.getActiveObject()) {

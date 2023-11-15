@@ -94,6 +94,9 @@
     height: 50px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   }
+  .headers{
+    padding: 20px 40px;
+  }
   
   /* --------------------Saved-------------------------- */
   
@@ -129,14 +132,17 @@
   }
   .more-btn{
     padding: 8px 10px;
-    background-color: rgb(0, 255, 119);
+    background-color: #faa6d3;
     border-radius: 4px;
-    border: 1px solid white;
+    border: 1px solid #faa6d3;
     cursor: pointer;
+    font-weight: 600;
+    transition: border-color 0.1s, background-color 0.1s;
   }
   .more-btn:hover{
-    background-color: rgb(3, 157, 75);
-    color: white;
+    border-color: #fdcd86;
+    background-color: #fdcd86;
+    color: black;
   }
   .more-buttons{
     width: 90%;
