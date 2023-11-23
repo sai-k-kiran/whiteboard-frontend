@@ -3,6 +3,7 @@ import "./UserDropDown.css";
 import { useSelector, useDispatch } from "react-redux";
 import User from "../images/user.png";
 import { setModal } from "../redux/User/UserActions";
+import { LuUserCircle } from "react-icons/lu";
 
 const UserDropDown = ({ Logout }) => {
   const [animate, setAnimate] = useState(false);
@@ -18,7 +19,7 @@ const UserDropDown = ({ Logout }) => {
       <ul className="list">
         <li className="profile">
           <div className="profileImg">
-            <img src={User} className="user-avatar" alt="profile img" />
+          <LuUserCircle style={{"fontSize":"50px"}}/>
           </div>
           <div className="profileText">
             <p>{user.name}</p>

@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./DesignTools.css";
 import { CanvasContext } from "../../main";
+import { TfiPaintBucket } from "react-icons/tfi";
 
 function DesignTools() {
   const canvas = React.useContext(CanvasContext);
@@ -50,9 +51,6 @@ function DesignTools() {
       }
     }
   };
-  useEffect(() => {
-    changeFont();
-  }, []);
 
   return (
     <div className="designTools">
@@ -99,11 +97,17 @@ function DesignTools() {
             <option value="verdana">Verdana</option>
           </select>
         </div>
+        <label>
         <input
           type="color"
+          id="fontColorButton"
           className="color-btn"
+          style={{"display":"none"}}
           onChange={(e) => changeColor(e)}
         />
+        <TfiPaintBucket style={{"cursor":"pointer"}}/>
+        </label>
+ 
         <button className="delete-btn" onClick={Delete}>
           Delete
         </button>

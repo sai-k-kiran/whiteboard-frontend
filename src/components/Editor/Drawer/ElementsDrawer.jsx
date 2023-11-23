@@ -55,6 +55,7 @@ function ElementsDrawer() {
         width: 700,
         fill: "#000000",
         opacity: 0.6, 
+        // canvas.setOverlayImage('../assets/jail_cell_bars.png', canvas.renderAll.bind(canvas));
       })
     );
   }

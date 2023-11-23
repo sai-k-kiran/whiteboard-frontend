@@ -6,6 +6,7 @@ import Logout from "../Auth/logout";
 import Logo from "../Images/logo.svg"
 import { addJson } from "../redux/Design/DesignActions";
 
+
 function Navbar() {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
