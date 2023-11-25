@@ -2,7 +2,7 @@ import designTypes from "./DesignTypes";
 
 const initialState = {
   ratios: {},
-  data: {},
+  data: {}
 };
 
 const designReducer = (state = initialState, action) => {

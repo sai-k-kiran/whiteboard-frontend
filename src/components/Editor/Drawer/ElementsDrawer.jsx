@@ -48,17 +48,6 @@ function ElementsDrawer() {
       })
     );
   }
-  function backgroundTint() {
-    canvas.current?.add(
-      new fabric.Rect({
-        height: 500,
-        width: 700,
-        fill: "#000000",
-        opacity: 0.6, 
-        // canvas.setOverlayImage('../assets/jail_cell_bars.png', canvas.renderAll.bind(canvas));
-      })
-    );
-  }
   function addRight() {
     var Right = new fabric.Path("M500 499.2H0V0L500 499.2z");
     Right.set({ fill: "blue", scaleX: 0.3, scaleY: 0.3 });
@@ -141,9 +130,6 @@ function ElementsDrawer() {
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <button className="uploadBtn" onClick={backgroundTint}>Add background tint</button>
       </div>
     </>
   );

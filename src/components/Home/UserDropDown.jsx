@@ -19,7 +19,7 @@ const UserDropDown = ({ Logout }) => {
       <ul className="list">
         <li className="profile">
           <div className="profileImg">
-          <LuUserCircle style={{"fontSize":"50px"}}/>
+          <LuUserCircle style={{"fontSize":"50px", "marginTop":"10px"}}/>
           </div>
           <div className="profileText">
             <p>{user.name}</p>

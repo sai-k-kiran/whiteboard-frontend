@@ -44,6 +44,7 @@ const setPassword = (e) => {
     login(data).then((res) => {
       navigate("/home/allDesigns")
       dispatch(setCurrentUser(res.data.userDTO))
+      console.log(res)
 
     }).catch(err => console.log(err.response))
   };

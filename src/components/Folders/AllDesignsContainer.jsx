@@ -9,7 +9,6 @@ import { addJson } from "../redux/Design/DesignActions";
 import Axios from "axios";
 import Loading from "../Home/Loading";
 import {ImSearch} from "react-icons/im"
-import {BiRevision} from "react-icons/bi"
 
 const pages = [1,2,3,4,5,6]
 
@@ -18,7 +17,6 @@ function AllDesignsContainer() {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
-  const canvas = React.useContext(CanvasContext);
   const navigate = useNavigate();
 
   const [toggleDrop, setToggleDrop] = useState(false);
@@ -27,17 +25,6 @@ function AllDesignsContainer() {
     dispatch(addJson(image))
     navigate("/editor")
   }
-
-  const drawFromSaved = (template) => {
-    const data = JSON.parse(template.data);
-    
-    data.objects[0].text = user.name;
-    data.objects[1].text = user.phoneNum || "";
-    data.objects[2].text = user.companyName || "";
-    data.objects[3].text = user.location || "";
-
-    setTimeout(dispatch(addJson(data)), 1000);
-  };
 
   async function submitQuery() {
     if(keyword.length != 0){
@@ -84,7 +71,7 @@ function AllDesignsContainer() {
                       <li className="savedDesigns" key={item.id}>
                         <Link to="/editor" style={{ color: "black" }}>
                           <img
-                            src={item.urls.thumb}
+                            src={item.urls.small}
                             className="templateImage"
                             alt={item.name}
                             onClick={() => draw(item.urls.regular)}

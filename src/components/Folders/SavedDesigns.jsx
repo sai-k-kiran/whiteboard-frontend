@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { addJson } from "../redux/Design/DesignActions";
 import "./AllDesigns.css";
 import { MdDeleteForever } from "react-icons/md";
@@ -14,9 +13,11 @@ function SavedDesigns() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const draw = (design) => {
-    const data = JSON.parse(design.data);
-    dispatch(addJson(data));
+  const draw = (id) => {
+    var obj = designs[id]
+    obj.saved = true;
+    dispatch(addJson(obj));
+    navigate("/editor")
   };
 
   async function Designs(user) {
@@ -31,7 +32,6 @@ function SavedDesigns() {
     catch(err){
       (console.log("err: ", err))
     }
-    
   }
 
   useEffect(() => {
@@ -52,29 +52,22 @@ function SavedDesigns() {
     }
   }
 
-  const edit = (design) => {
-    // const data = JSON.parse(design);
-    // dispatch(addJson(data));
-    // navigate("/editor")
-  }
-
   return (
     <>
       {designs.length > 0 ? (
           <div className="designList">
           <ul className="templates">
               {designs != 0
-              ? designs.map((item) => {
+              ? designs.map((item, i) => {
                   return (
-                    <li className="savedDesigns" key={item.id}>
+                    <li className="savedDesigns" key={item.designId}>
                        <img
                           src={Paintbrush}
                           className="templateImage"
                           alt={item.name}
-                          onClick={() => draw(item.designId)}
                         />
                         <div className="more-buttons">
-                          <button className="more-btn" onClick={draw(item.designId)}>Edit</button>
+                          <button className="more-btn" onClick={() => draw(i)}>Edit</button>
                           <MdDeleteForever
                             className="delete-button"
                             onClick={() => deleteSaved(item.designId)}
@@ -84,7 +77,7 @@ function SavedDesigns() {
                   );
                 })
               : 
-              pages.map((page, id) => <Loading key={id} />)}
+              pages.map((id) => <Loading key={id} />)}
             </ul>
       </div>
       ) : (
