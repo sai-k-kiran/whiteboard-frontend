@@ -1,42 +1,39 @@
 import React, { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
-// import Axios from "axios";
+import { useSelector } from "react-redux";
+import Axios from "axios";
 import "./AllDesigns.css";
-// import { useTranslation } from "react-i18next";
 import { MdDeleteForever } from "react-icons/md";
 
 function UploadsContainer() {
   const [images, setImages] = useState([]);
-//   const user = useSelector((state) => state.user.currentUser);
-//   const { t } = useTranslation();
+  const user = useSelector((state) => state.user.currentUser);
 
   function fetchUploads() {
-    // Axios.post(
-    //   "https://localhost:3001/image/uploads",
-    //   {
-    //     userId: user.id,
-    //   },
-    //   { withCredentials: true }
-    // ).then((res) => {
-    //   setImages(res.data.images);
-    // });
+    Axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/allImages`,
+      {params:{id: user.id}}
+    ).then((res) => {
+      setImages(res.data.image_url);
+      console.log(res); 
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
-  useEffect(() => {
-    fetchUploads();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchUploads();
+  // }, []);
 
-  const deleteUploaded = (id) => {
-    // Axios.post(
-    //   "https://localhost:3001/iamge/delete_uploaded",
-    //   { id: id },
-    //   { withCredentials: true }
-    // )
-    //   .then((response) => {
-    //     setImages(images.filter((item) => item.id !== id));
-    //   })
-    //   .catch((err) => console.log("error"));
+  const deleteUploaded = (url, id) => {
+    Axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/deleteFile`,
+      { withCredentials: true }
+    )
+      .then((response) => {
+        setImages(images.filter((item) => item.id !== id));
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <>
@@ -47,13 +44,13 @@ function UploadsContainer() {
               <div className="uploads-div">
                 <img
                   key={image.id}
-                  src={"https://localhost:3001/Uploads/" + image.name}
+                  src={image.imageUrl}
                   alt="uploaded_img"
                   className="uploads-image"
                 />
                 <MdDeleteForever
                   className="delete-button"
-                  onClick={() => deleteUploaded(image.id)}
+                  onClick={() => deleteUploaded(image.imageUrl, image.id)}
                 />
               </div>
             );

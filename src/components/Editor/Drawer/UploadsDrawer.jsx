@@ -8,50 +8,50 @@ import { fabric } from "fabric";
 function UploadsDrawer() {
   const canvas = React.useContext(CanvasContext);
   const [images, setImages] = useState([]);
-  // const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user.currentUser);
 
   const handleFile = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("image", e.target.files[0]);
-    data.append("userId", user.id);
-    data.append("name", e.target.files[0].name);
+    data.append("file", e.target.files[0]);
+    data.append("user_id", user.id);
 
     const config = {
       headers: {
         "content-type": "multipart/form-data",
       },
     };
-    // Axios.post("https://localhost:3001/image/upload", data, config)
-    //   .then((res) => {
-    //     setImages([...images, res.data.image]);
-    //   })
-    //   .catch((err) => console.log(err));
+    Axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/uploadFile`,
+     data, config)
+      .then((res) => {
+        setImages([...images, res.data.image_url]);
+        console.log(images);
+      })
+      .catch((err) => console.log(err));
   };
 
-//   useEffect(() => {
-//     Axios.post(
-//       "https://localhost:3001/image/uploads",
-//       {
-//         userId: user.id,
-//       },
-//       { withCredentials: true }
-//     ).then((res) => {
-//       setImages(...images, res.data.images);
-//     });
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, []);
+  useEffect(() => {
+    Axios.get(
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/allImages`,
+      {params:{id: user.id}}
+    ).then((res) => {
+      setImages(res.data);
+      console.log(images);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }, []);
 
-  function handlePhotos(name) {
-    // fabric.Image.fromURL(
-    //   `https://localhost:3001/Uploads/${name}`,
-    //   function (oImg) {
-    //     oImg.scale(0.1);
-    //     canvas.current?.add(oImg);
-    //     canvas.current.renderAll();
-    //   },
-    //   { crossOrigin: "anonymous" }
-    // );
+  function handlePhotos(imageUrl) {
+    fabric.Image.fromURL(imageUrl,
+      function (oImg) {
+        oImg.scale(0.1);
+        canvas.current?.add(oImg);
+        canvas.current.renderAll();
+      },
+      { crossOrigin: "anonymous" }
+    );
   }
 
   return (
@@ -77,10 +77,10 @@ function UploadsDrawer() {
               <div
                 key={image.id}
                 className="unsplash-image"
-                onClick={() => handlePhotos(image.name)}
+                onClick={() => handlePhotos(image.imageUrl)}
               >
                 <img
-                  src={"https://localhost:3001/Uploads/" + image.name}
+                  src={image.imageUrl}
                   alt="uploaded_img"
                   className="uploaded-image"
                 />
