@@ -9,48 +9,48 @@ function UploadsContainer() {
   const user = useSelector((state) => state.user.currentUser);
 
   function fetchUploads() {
-    Axios.post(
+    Axios.get(
       `${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/allImages`,
       {params:{id: user.id}}
     ).then((res) => {
-      setImages(res.data.image_url);
-      console.log(res); 
+      setImages(res.data);
     })
     .catch(err => {
       console.log(err)
     })
   }
 
-  // useEffect(() => {
-  //   fetchUploads();
-  // }, []);
+  useEffect(() => {
+    fetchUploads();
+  }, []);
 
-  const deleteUploaded = (url, id) => {
-    Axios.post(
+  const deleteUploaded = async (url, id) => {
+    await Axios.delete(
       `${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/deleteFile`,
-      { withCredentials: true }
+      {params:{fileUrl: url}}
     )
       .then((response) => {
         setImages(images.filter((item) => item.id !== id));
+        console.log("Item deleted")
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <>
       {images.length > 0 ? (
         <div className="uploaded">
           {images.map((image) => {
             return (
-              <div className="uploads-div">
+              <div className="uploads-div" key={image.id}>
                 <img
-                  key={image.id}
-                  src={image.imageUrl}
+                  src={image.image_url}
                   alt="uploaded_img"
                   className="uploads-image"
                 />
                 <MdDeleteForever
                   className="delete-button"
-                  onClick={() => deleteUploaded(image.imageUrl, image.id)}
+                  onClick={() => deleteUploaded(image.image_url, image.id)}
                 />
               </div>
             );

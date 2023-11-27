@@ -59,7 +59,6 @@ const Design = () => {
         design,
         function () {
           let img = canvas.current.backgroundImage;
-          console.log(canvas.current);
           img.originX = "left";
           img.originY = "top";
           img.scaleX = canvas.current.getWidth() / img.width;

@@ -93,7 +93,6 @@ function DesignTools() {
         switch(action) {
             case 'bold':				
                 var isBold = getStyle(o, 'fontWeight') === "bold";
-                console.log(isBold);
                 o.set("fontWeight", isBold ? "normal" : "bold");   
             break;
 

@@ -24,29 +24,31 @@ function UploadsDrawer() {
     Axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/uploadFile`,
      data, config)
       .then((res) => {
-        setImages([...images, res.data.image_url]);
-        console.log(images);
+        setImages([...res.data]);
       })
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
+  function fetchUploads() {
     Axios.get(
       `${import.meta.env.VITE_API_BASE_URL}/api/v1/storage/allImages`,
       {params:{id: user.id}}
     ).then((res) => {
       setImages(res.data);
-      console.log(images);
     })
     .catch(err => {
-      console.log(err);
+      console.log(err)
     })
-  }, []);
+  }
+
+  useEffect(() => {
+    fetchUploads();
+  }, [images]);
 
   function handlePhotos(imageUrl) {
     fabric.Image.fromURL(imageUrl,
       function (oImg) {
-        oImg.scale(0.1);
+        oImg.scale(0.25);
         canvas.current?.add(oImg);
         canvas.current.renderAll();
       },
@@ -72,16 +74,17 @@ function UploadsDrawer() {
         </div>
       ) : (
         <div className="scrollDiv">
-          {images.map((image) => {
+          {images.map((image, id) => {
             return (
               <div
-                key={image.id}
+                key={id}
                 className="unsplash-image"
-                onClick={() => handlePhotos(image.imageUrl)}
+                onClick={() => handlePhotos(image.image_url)}
               >
                 <img
-                  src={image.imageUrl}
+                  src={image.image_url}
                   alt="uploaded_img"
+                  loading="lazy"
                   className="uploaded-image"
                 />
               </div>

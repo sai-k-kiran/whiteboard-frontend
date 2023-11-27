@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AllDesigns.css";
 import { useNavigate } from "react-router";
-import { CanvasContext } from "../../main";
-import { fabric } from "fabric";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addJson } from "../redux/Design/DesignActions";
@@ -81,7 +79,7 @@ function AllDesignsContainer() {
                     );
                   })
                 : 
-                pages.map((page, id) => <Loading key={id} />)}
+                pages.map((id) => <Loading key={id} />)}
               </ul>
         </div>
       </div>
