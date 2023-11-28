@@ -39,23 +39,30 @@ function UploadsContainer() {
   return (
     <>
       {images.length > 0 ? (
-        <div className="uploaded">
+        <ul className="templates">
           {images.map((image) => {
             return (
-              <div className="uploads-div" key={image.id}>
+              <li className="savedDesigns" key={image.id}>
                 <img
                   src={image.image_url}
                   alt="uploaded_img"
                   className="uploads-image"
                 />
-                <MdDeleteForever
+                 <div className="more-buttons">
+                      <MdDeleteForever
+                        className="delete-button"
+                        onClick={() => deleteUploaded(image.image_url, image.id)}
+                      />
+                </div>
+                {/* <MdDeleteForever
                   className="delete-button"
                   onClick={() => deleteUploaded(image.image_url, image.id)}
-                />
-              </div>
+                /> */}
+              </li>
+             
             );
           })}
-        </div>
+        </ul>
       ) : (
         <>
           <div className="headers">

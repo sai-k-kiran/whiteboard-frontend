@@ -14,7 +14,7 @@ function EditorNav() {
   const canvas = React.useContext(CanvasContext);
   const navigate = useNavigate();
 
-  const design = {};
+  // const design = {};
 
   const download = () => {
     const url = canvas.current.toDataURL("image/jpeg", 1.0);
@@ -24,13 +24,13 @@ function EditorNav() {
     link.click();
   };   
 
-  async function transform(){
-    const data = canvas.current.toJSON();
-    const obj = JSON.stringify(data);
+  // async function transform(){
+  //   const data = canvas.current.toJSON();
+  //   const obj = JSON.stringify(data);
 
-    design.canvas = obj;
-    design.user
-  } 
+  //   design.canvas = obj;
+  //   design.user
+  // } 
 
   const saveDesign = async() => {
     const data = canvas.current.toJSON();

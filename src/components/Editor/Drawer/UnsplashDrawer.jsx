@@ -45,7 +45,7 @@ function UnsplashDrawer() {
     fabric.Image.fromURL(
       url,
       function (oImg) {
-        oImg.scale(0.1);
+        oImg.scale(0.25);
         canvas.current?.add(oImg);
         canvas.current.renderAll();
       },
@@ -81,7 +81,7 @@ function UnsplashDrawer() {
                     className="unsplash-image"
                     onClick={() => addPhoto(image.urls.regular)}
                   >
-                    <img src={image.urls.thumb} alt="photos" />
+                    <img src={image.urls.thumb} alt="photos" lazy="true"/>
                   </div>
                 );
               })

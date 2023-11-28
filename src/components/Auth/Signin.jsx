@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Home/Navbar";
 import "./Signin.css";
 import { Link, useNavigate } from "react-router-dom";
-import Vector from "../images/loginpic.svg";
 import { FaAngleDoubleLeft } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/User/UserActions";
 import { useAuth } from "../context/authContext.jsx";
+import Back from "../Images/back.jpg"
 
 function SignIn() {
   const {user, login} = useAuth()
@@ -53,50 +53,42 @@ const setPassword = (e) => {
     <>
         <Navbar />
         <div className="login">
-            <div className="loginContainer">
-            <div className="register-info">
-          <h1>
-            <Link to="/login">
-              <FaAngleDoubleLeft />
-            </Link>
-            Sign In
-          </h1>
-          <p>Sign up</p>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="reg-input"
-              name="email"
-              value={data.email}
-              onChange={e => setEmail(e)}
-              placeholder="E-mail"
-            />{
-              <div className="errors">
-                {data.username.length != 0 && error ? (
-                  <p>Email is invalid</p>
-                ) : ''}
-              </div>
-            }
-            <input
-              type="password"
-              className="reg-input"
-              value={data.password}
-              onChange={e => setPassword(e)}
-              name="password"
-              placeholder="password"
-            />
-            <button type="button" disabled={invalid}
-            className="signup-btn login-btn"
-            onClick={() => handleSubmit(data)}>
-              Sign In</button>
-          </form>
-          <p className="login-foot">
-            New to Whiteboard? <Link to="/register">Create an account</Link>
-          </p>
-        </div>
-        <div className="login-pic">
-          <img className="login-vector" src={Vector} alt="login-pic" />
-        </div>
-            </div>
+            <img className="signin-back" src={Back} />
+                <div className="loginContainer">
+                    <div className="register-info">
+                        <h1>Sign In</h1>
+                        <form onSubmit={handleSubmit} className="signin-form">
+                          <input
+                            className="reg-input"
+                            name="email"
+                            value={data.email}
+                            onChange={e => setEmail(e)}
+                            placeholder="E-mail"
+                          />{
+                            <div className="errors">
+                              {data.username.length != 0 && error ? (
+                                <p>Email is invalid</p>
+                              ) : ''}
+                            </div>
+                          }
+                          <input
+                            type="password"
+                            className="reg-input"
+                            value={data.password}
+                            onChange={e => setPassword(e)}
+                            name="password"
+                            placeholder="password"
+                          />
+                          <button type="button" disabled={invalid}
+                          className="signin-btn login-btn"
+                          onClick={() => handleSubmit(data)}>
+                            Sign In</button>
+                        </form>
+                        <p className="login-foot">
+                          New to Whiteboard? <Link to="/register">Create an account</Link>
+                        </p>
+                    </div>
+                </div>
         </div>
 
     </>

@@ -8,6 +8,7 @@ import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/User/UserActions";
 import { saveUser } from "../Services/client"; 
+import Back from "../Images/back.jpg"
 
 function Register() {
   const [data, setData] = useState({ name: "", email: "", password: "" });
@@ -50,15 +51,11 @@ function Register() {
     <>
         <Navbar />
         <div className="login">
+        <img className="register-back" src={Back} />
             <div className="loginContainer">
                 <div className="register-info">
-                    <h1>
-                        <Link to="/login">
-                        <FaAngleDoubleLeft />
-                        </Link>
-                        Create your account
-                    </h1>
-                    <p>We'll have you designing in no time.</p>
+                    <h1>Create your account</h1>
+                    <p>Get started with whiteboard journey</p>
                     <form onSubmit={handleSubmit}>
                         <input
                         className="reg-input"
@@ -88,20 +85,12 @@ function Register() {
                         onChange={e => setPassword(e)}
                         placeholder="Password"
                         />
-                        <p className="login-foot">Use 6 or more characters</p>
                         <button onClick={() => handleSubmit(data)}
                         className="signup-btn login-btn">Sign Up with Email</button>
                     </form>
                     <p className="login-foot">
-                        By signing up, you agree to Gwaphics' Terms of Use and Privacy
-                        Policy.
-                    </p>
-                    <p className="login-foot">
                         Already signed up? <Link to="/login">Log in</Link>
                     </p>
-                </div>
-                <div className="login-pic">
-                    <img className="login-vector" src={Vector} alt="login-pic" />
                 </div>
             </div>
         </div>

@@ -38,7 +38,6 @@ function Home(){
     <div>
       {show === "show" ? <Modal /> : null}
       <Navbar />
-      <hr></hr>
       <div className="home-tab">
         <div className="home-side-bar">
           <ul className="side-bar-links">

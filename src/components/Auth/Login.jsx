@@ -6,6 +6,7 @@ import Vector from "../images/loginpic.svg";
 import {FcGoogle} from "react-icons/fc"
 import {FaFacebook} from "react-icons/fa"
 import {FiUserCheck} from "react-icons/fi"
+import Back from "../Images/back.jpg"
 
 function Login() {
   const navigate = useNavigate();
@@ -30,41 +31,25 @@ function Login() {
     <>
       <Navbar />
       <div className="login">
+        <img className="login-back" src={Back} />
           <div className="loginContainer">
              <div className="login-info">
-                  <h1>
-                    Log in to use Whiteboard
-                  </h1>
+                  <h1>Log in to use Whiteboard</h1>
                   <p>Increase your social presence</p>
-                  <button className="social-btn login-btn">
-                    <FcGoogle />
-                    Log in with Google
-                  </button>
-                  <button className="social-btn login-btn">
-                    <FaFacebook />
-                  Log in with facebook
-                  </button>
-                  <div className="striked-line">
-                    <hr></hr>
-                    <div className="OR">OR</div>
-                    <hr></hr>
-                  </div>
                   <button className="social-btn login-btn" >
                     <FiUserCheck />
-                    Log in as a guest 
+                    Try out!
                   </button>
-                  <Link to="/signin">
-                    <button className="social-btn login-btn">
-                      Sign in with whiteboard account instead
+                  <Link to="/signin" style={{width:"100%"}}>
+                    <button className="login-btn sign-in">
+                      Sign In
                     </button>
                   </Link>
                   <p className="login-foot">
                     <Link to="/register">Create an account</Link>
                   </p>
               </div>
-              <div className="login-pic">
-                  <img className="login-vector" src={Vector} alt="login-pic" />
-              </div>
+            
           </div>
       </div>
     </>

@@ -55,14 +55,34 @@ const Design = () => {
     );
 
     if(design.length != 0 && design != null){
-      canvas.current.setBackgroundImage(
-        design,
-        function () {
-          let img = canvas.current.backgroundImage;
-          img.originX = "left";
-          img.originY = "top";
-          img.scaleX = canvas.current.getWidth() / img.width;
-          img.scaleY = canvas.current.getHeight() / img.height;
+      console.log(design)
+
+      fabric.Image.fromURL(design,
+        function (img) {
+          let maxHeight = 500, maxWidth = 700;
+
+          let widthAspectRatio = maxWidth / img.width;
+          let heightAspectRatio = maxHeight / img.height;
+
+          let finalScale = Math.min(widthAspectRatio, heightAspectRatio)
+          
+          let finalHeight = img.height * finalScale;
+          let finalWidth = img.width * finalScale;
+
+          let imgTop = 0;
+          if (maxHeight > finalHeight) {
+            imgTop = (Math.round(maxHeight) - Math.round(finalHeight)) / 2;
+          }
+      
+          let imgLeft = 0;
+          if (maxWidth > finalWidth) {
+            imgLeft = (Math.round(maxWidth) - Math.round(finalWidth)) / 2;
+          }
+
+          img.set({ left: imgLeft, top: imgTop });
+          img.scale(finalScale);
+
+          canvas.current?.add(img);
           canvas.current.renderAll();
         },
         { crossOrigin: "anonymous" }

@@ -60,7 +60,7 @@ function AllDesignsContainer() {
                    </li>
                </ul>
              </div>
-           : null}
+           : null} 
         <div className="designList">
             <ul className="templates">
                 {templates != 0
