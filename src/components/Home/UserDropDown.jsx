@@ -13,7 +13,7 @@ const UserDropDown = ({ Logout }) => {
   useEffect(() => {
     setAnimate(true);
   }, []);
-  
+   
   return (
     <div className={`dropdownCard ${animate ? "animate" : ""}`}>
       <ul className="list">

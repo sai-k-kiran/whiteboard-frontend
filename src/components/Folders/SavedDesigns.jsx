@@ -6,12 +6,14 @@ import "./AllDesigns.css";
 import { MdDeleteForever } from "react-icons/md";
 import Paintbrush from "../Images/paintbrush.jpg"
 import { useNavigate } from "react-router";
+import { FiMoreHorizontal } from "react-icons/fi";
 
 function SavedDesigns() {
   const user = useSelector((state) => state.user.currentUser);
   const [designs, setDesigns] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [animate, setAnimate] = useState(false);
 
   const draw = (id) => {
     var obj = designs[id]
@@ -36,6 +38,7 @@ function SavedDesigns() {
 
   useEffect(() => {
     Designs(user)
+    setAnimate(true);
   }, [])
 
   const deleteSaved = async (id) => {
@@ -52,6 +55,15 @@ function SavedDesigns() {
     }
   }
 
+  const [clickedIndex, setClickedIndex] = useState({});
+
+  const handleClick = (index) => () => {
+    setClickedIndex(state => ({
+      ...state, 
+      [index]: !state[index] 
+    }));
+  };
+
   return (
     <>
       {designs.length > 0 ? (
@@ -61,18 +73,35 @@ function SavedDesigns() {
               ? designs.map((item, i) => {
                   return (
                     <li className="savedDesigns" key={item.designId}>
+                      <div className="more-buttons">
+                          <FiMoreHorizontal
+                            className="delete-button"
+                            // style={{opacity : entered ? 1 : 0}}
+                            onClick={handleClick(i)}
+                          />
+                          {clickedIndex[i] ? 
+                            <div className="edit-btn">
+                              <div className={`edit-box-random ${animate ? "animate" : ""}`}>
+                                <ul className="search-list">
+                                  <li className="listItem"
+                                  onClick={() => draw(i)}>
+                                      Edit
+                                    </li>
+                                    <li className="listItem"
+                                    onClick={() => deleteSaved(image.image_url, image.id)}>
+                                      Delete
+                                    </li>
+                                </ul>
+                              </div>
+                            </div>
+                          : null}
+                        </div>
                        <img
                           src={Paintbrush}
                           className="templateImage"
                           alt={item.name}
                         />
-                        <div className="more-buttons">
-                          <button className="more-btn" onClick={() => draw(i)}>Edit</button>
-                          <MdDeleteForever
-                            className="delete-button"
-                            onClick={() => deleteSaved(item.designId)}
-                          />
-                        </div>
+                    
                     </li>
                   );
                 })

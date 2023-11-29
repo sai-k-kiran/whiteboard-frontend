@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
-import Vector from "../images/loginpic.svg";
-import { FaAngleDoubleLeft } from "react-icons/fa";
 import Navbar from "../Home/Navbar";
-import Axios from "axios";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../redux/User/UserActions";
 import { saveUser } from "../Services/client"; 
 import Back from "../Images/back.jpg"
 
 function Register() {
+  if(localStorage.getItem("token")){
+    navigate('/home')
+  }
+
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [error, setError] = useState(false)
   const [invalid, setInValid] = useState(true)
 
@@ -44,7 +43,7 @@ function Register() {
 
   const handleSubmit = (data) => {
     saveUser(data).then((res) => {
-      navigate("/signin")
+      navigate("/login")
     }).catch(err => console.log(err.response))
   };
   return (
