@@ -18,6 +18,6 @@ Some of the features of the app are:
 # Editor with sidebar expanded:
 ![Screenshot (17)](https://github.com/sai-k-kiran/whiteboard-frontend/assets/87799815/3d0b02f1-2974-4418-85da-2c8bd6d1af0d)
 
-Install & Run:
+# Install & Run:
   - Clone the repo (plus the whiteboard repo for backend)
   - run "npm run dev" in the terminal
